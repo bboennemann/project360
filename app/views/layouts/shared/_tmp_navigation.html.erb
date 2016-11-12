@@ -1,0 +1,9 @@
+<%= link_to 'Oranizations', organizations_path %>&nbsp;|&nbsp;
+<%= link_to 'Departments', departments_path %>&nbsp;|&nbsp;
+<%= link_to 'Client', clients_path %>&nbsp;|&nbsp;
+<%= link_to 'Project', projects_path %>&nbsp;|&nbsp;
+<% if user_signed_in? %>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+<% else %>
+  <%= link_to('Login', new_user_session_path)  %>  
+<% end %>

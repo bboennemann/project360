@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @department.name %>
+</p>
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>
+
+<p>
+<strong>Clients:</strong>
+<% @department.clients.each do |client| %>
+<p>
+  <%= link_to client.name, client %>
+</p>
+
+<% end %>
+</p>
+<td><%= link_to 'Add Client', new_client_path %></td>
