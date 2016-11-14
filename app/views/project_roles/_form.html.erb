@@ -1,0 +1,37 @@
+<%= form_for(@project_role) do |f| %>
+  <% if @project_role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_role.errors.count, "error") %> prohibited this project_role from being saved:</h2>
+
+      <ul>
+      <% @project_role.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label 'Role' %>
+    <%= f.collection_select :role_id, @roles, :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :rate %><br>
+    <%= f.text_field :rate %>
+  </div>
+  <div class="field">
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </div>
+  <div class="field">
+    <%= f.label :project_id %><br>
+    <%= f.text_field :project_id, disabled: false %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

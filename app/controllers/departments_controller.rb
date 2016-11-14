@@ -4,20 +4,26 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.where(organization_id: session[:organization_id])
+    @departments = Department.where(organization_id: current_user.organization_id)
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
-    session[:department_id] = params[:id]
+    # temp 
+    current_user.update_attribute(:department_id, @department.id)
+    # temp
+
+    @clients = Client.where(department_id: @department.id)
+
+    @users = User.where(department_id: @department.id)
   end
 
   # GET /departments/new
   def new
     @department = Department.new
     
-    @department.organization_id = session[:organization_id]
+    @department.organization_id = current_user.organization_id
   end
 
   # GET /departments/1/edit
@@ -29,7 +35,9 @@ class DepartmentsController < ApplicationController
   def create
     @department = Department.new(department_params)
 
-    @department.organization_id = session[:organization_id].to_s
+    logger.debug ">>>>>>>>>>>>>>>>>>." + @department.organization_id.to_s
+
+    #@department.organization_id = department_params[:organization_id]
 
     respond_to do |format|
       if @department.save

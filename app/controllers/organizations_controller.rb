@@ -11,7 +11,12 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     # temp 
-    session[:organization_id] = params[:id]
+    current_user.update_attribute(:organization_id, @organization.id)
+    # temp
+
+    @departments = Department.where(organization_id: @organization.id)
+    @users = User.where(User_id: @organization.id)
+    @roles = @organization.roles
   end
 
   # GET /organizations/new

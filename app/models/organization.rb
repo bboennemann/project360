@@ -3,6 +3,7 @@ class Organization
   include Mongoid::Timestamps
 
   has_many :departments
+  has_many :roles
 
   field :name, type: String
 end

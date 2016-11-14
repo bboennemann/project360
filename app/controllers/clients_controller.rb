@@ -4,18 +4,20 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = Client.where(department_id: current_user.department_id)
   end
 
   # GET /clients/1
   # GET /clients/1.json
   def show
+    session[:client_id] = @client.id
+    @projects = Project.where(client_id: @client_id)
   end
 
   # GET /clients/new
   def new
     @client = Client.new
-    @department_id = session[:department_id]
+    @department_id = current_user.department_id
   end
 
   # GET /clients/1/edit
@@ -26,7 +28,8 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
-    @client.department = session[:department_id]
+    @client.department = current_user.department_id
+    @client.organization = current_user.organization_id
 
     respond_to do |format|
       if @client.save

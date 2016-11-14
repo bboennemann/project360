@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :Client %><br>
-    <%= select_tag "client_id", options_from_collection_for_select(@clients, "id", "name") %>
+    <%= f.text_field :client_id, value: @client.name, disabled: true %>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>
@@ -31,7 +31,7 @@
     <%= f.label :active %><br>
     <%= f.check_box :active %>
   </div>
-  <input type="hidden" id="department_id" name="department_id" value="<%= @department_id %>">
+  <input type="hidden" id="department_id" name="department_id" value="<%= current_user.department_id %>">
   <div class="actions">
     <%= f.submit %>
   </div>

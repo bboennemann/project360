@@ -9,12 +9,11 @@
 <%= link_to 'Back', departments_path %>
 
 <p>
-<strong>Clients:</strong>
-<% @department.clients.each do |client| %>
-<p>
-  <%= link_to client.name, client %>
+  <%= render '/clients/list' %>
 </p>
 
-<% end %>
+<p>
+  <%= render '/users/list' %>
 </p>
-<td><%= link_to 'Add Client', new_client_path %></td>
+
+<%= link_to 'New User', new_user_path %>

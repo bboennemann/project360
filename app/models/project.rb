@@ -7,6 +7,8 @@ class Project
   belongs_to :client
   field :client_id, type: BSON::ObjectId
 
+  has_many :project_roles
+
   field :name, type: String
   field :start_date, type: Date
   field :end_date, type: Date

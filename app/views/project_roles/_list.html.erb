@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Project Roles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Rate</th>
+      <th>Cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_roles.each do |project_role| %>
+      <tr>
+        <td><%= project_role.user.email %></td>
+        <td><%= project_role.rate %></td>
+        <td><%= project_role.cost %></td>
+        <td><%= link_to 'Show', project_role %></td>
+        <td><%= link_to 'Edit', edit_project_role_path(project_role) %></td>
+        <td><%= link_to 'Destroy', project_role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add Project Member', project_project_roles_assign_path(@project.id) %>

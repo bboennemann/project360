@@ -7,14 +7,7 @@
 
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>
+<%= link_to 'Add Department', new_department_path %>
 
-<p>
-<strong>Departments:</strong>
-<% @organization.departments.each do |department| %>
-<p>
-  <%= link_to department.name, department %>
-</p>
-
-<% end %>
-</p>
-<td><%= link_to 'Add Department', new_department_path %></td>
+<%= render '/departments/list' %>
+<%= render '/roles/list' %>

@@ -1,13 +1,31 @@
 Rails.application.routes.draw do
+  
   devise_for :users
   resources :users
-  resources :projects
-  resources :clients
-  resources :departments do
-    resources :clients
-    resources :products
+  post 'users/admin_create' => 'users#create'
+
+  resources :organizations do
   end
-  resources :organizations
+
+  resources :departments do
+  end
+  
+  resources :clients do
+    resources :projects, only: [:new]
+  end
+
+  post '/project_roles/new' => 'project_roles#new'
+  resources :project_roles
+
+
+  resources :roles
+  resources :projects do
+    resources :project_roles, only: [:new]
+    get 'project_roles/assign' => 'project_roles#assign'
+
+  end
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

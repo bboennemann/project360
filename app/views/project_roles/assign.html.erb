@@ -1,0 +1,14 @@
+
+<% @users.each do |user| %>
+
+<%= form_for(@project_role, url: '/project_roles/new', method: :post) do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field 'user_id', value: user.email, disabled: false %>
+    <%= f.hidden_field 'user_id', value: user.id, disabled: false %>
+    <%= f.hidden_field :project_id, value: params[:project_id], disabled: false %>
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<% end %>

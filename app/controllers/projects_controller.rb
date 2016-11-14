@@ -10,13 +10,14 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    session[:project_id] = @project.id
+    @project_roles = @project.project_roles
   end
 
   # GET /projects/new
   def new
     @project = Project.new
-    @department_id = session[:department_id]
-    @clients = Client.where(department_id: @department_id)
+    @client = Client.find(session[:client_id])
   end
 
   # GET /projects/1/edit
