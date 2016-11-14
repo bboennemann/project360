@@ -16,8 +16,12 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :Client %><br>
-    <%= f.text_field :client_id, value: @client.name, disabled: true %>
+    <%= f.label :client_id %><br>
+    <%= f.text_field :client_id, value: @project.client_id, disabled: false %>
+  </div>
+  <div class="field">
+    <%= f.label :client_name %><br>
+    <%= f.text_field :client_name, value: @project.client.name , disabled: true %>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Projects</h1>
+<h3>Projects</h3>
 
 <table>
   <thead>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'New Project', new_client_project_path(@client.id) %>

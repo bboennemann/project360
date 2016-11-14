@@ -29,9 +29,6 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-    @project.client_id = params[:client_id]
-    @project.department_id = params[:department_id]
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
