@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.where(department_id: current_user.department_id)
   end
 
   # GET /projects/1
@@ -17,11 +17,12 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    @client = Client.find(session[:client_id])
+    @client = Client.find(params[:client_id])
   end
 
   # GET /projects/1/edit
   def edit
+    @client = Client.find(session[:client_id])
   end
 
   # POST /projects
@@ -57,9 +58,10 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    client_id = @project.client_id
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to clients_path(client_id), notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -7,6 +7,9 @@ class User
   belongs_to :organization
   field :organization_id, type: BSON::ObjectId
 
+  has_one :role
+  field :role_id, type: BSON::ObjectId
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -43,7 +46,6 @@ class User
 
   field :first_name, type: String
   field :last_name, type: String
-  field :role, type: String
   field :rate, type: Float
   field :cost, type: Float
 

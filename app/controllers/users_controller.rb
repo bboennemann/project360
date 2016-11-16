@@ -14,11 +14,13 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @roles = Role.all
     @department_id = params[:department_id]
   end
 
   # GET /users/1/edit
   def edit
+    @roles = Role.all
   end
 
   # POST /users
