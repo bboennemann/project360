@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   def show
     session[:project_id] = @project.id
     @project_roles = @project.project_roles
+    @forecasts = @project.forecasts
   end
 
   # GET /projects/new

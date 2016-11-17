@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :time_entries
+  resources :forecasts
   devise_for :users
   resources :users
   post 'users/admin_create' => 'users#create'
@@ -22,9 +24,11 @@ Rails.application.routes.draw do
 
 
   resources :roles
+
   resources :projects do
     resources :project_roles, only: [:new]
     get 'project_roles/assign' => 'project_roles#assign'
+    resources :forecasts, only: [:new]
 
   end
 

@@ -1,0 +1,24 @@
+<h1>Forecasts</h1>
+
+<table width="100%" border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Revision</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forecasts.each do |forecast| %>
+      <tr>
+        <td><%= forecast.name %></td>
+        <td><%= forecast.revision %></td>
+        <td><%= link_to 'Show', forecast %></td>
+        <td><%= link_to 'Edit', edit_forecast_path(forecast) %></td>
+        <td><%= link_to 'Destroy', forecast, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

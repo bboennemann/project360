@@ -18,3 +18,7 @@
 <%= link_to 'Back', projects_path %>
 
 <%= render '/project_roles/list' %>
+<%= link_to 'Add Project Member', project_project_roles_assign_path(@project.id) %>
+
+<%= render '/forecasts/list' %>
+<%= link_to 'New Forecast', new_project_forecast_path(@project) %>

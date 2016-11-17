@@ -9,6 +9,8 @@ class Project
 
   has_many :project_roles
 
+  has_many :forecasts
+
   field :name, type: String
   field :start_date, type: Date
   field :end_date, type: Date
