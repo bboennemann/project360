@@ -1,9 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @department.name %>
-</p>
+<h1>Department: <%= @department.name %></h1>
 
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>
@@ -16,4 +11,4 @@
   <%= render '/users/list' %>
 </p>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'New User', new_department_user_path(@department) %>

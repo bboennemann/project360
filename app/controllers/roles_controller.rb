@@ -25,7 +25,6 @@ class RolesController < ApplicationController
   # POST /roles.json
   def create
     @role = Role.new(role_params)
-    @role.organization_id = current_user.organization_id
 
     respond_to do |format|
       if @role.save
@@ -70,6 +69,6 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :rate)
+      params.require(:role).permit(:name, :rate, :organization_id)
     end
 end

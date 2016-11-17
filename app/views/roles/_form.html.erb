@@ -19,6 +19,9 @@
     <%= f.label :rate %><br>
     <%= f.text_field :rate %>
   </div>
+  
+    <%= f.hidden_field :organization_id, value: current_user.organization.id %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -16,10 +16,7 @@
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.text_field :organization_id, value: current_user.organization_id, disabled: true %>
-  </div>
+    <%= f.hidden_field :organization_id, value: current_user.organization_id %>
 
   <div class="actions">
     <%= f.submit %>

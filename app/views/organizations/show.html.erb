@@ -1,13 +1,11 @@
+<h1>Organization: <%= @organization.name %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @organization.name %>
-</p>
 
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>
-<%= link_to 'Add Department', new_department_path %>
 
 <%= render '/departments/list' %>
+<br>
+<%= link_to 'Add Department', new_organization_department_path(@organization) %>
+<hr>
 <%= render '/roles/list' %>

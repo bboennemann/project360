@@ -29,8 +29,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     @user.organization_id = current_user.organization_id
-    @user.department_id = params[:department_id] # why can't I use user_params??? Doesn;t work!
-
+    
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'user was successfully created.' }

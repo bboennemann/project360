@@ -7,7 +7,7 @@ class ProjectRole
   belongs_to :project
   field :project_id, type: BSON::ObjectId
 
-  has_one :role
+  belongs_to :role
   field :role_id, type: BSON::ObjectId
 
   field :rate, type: Float

@@ -11,7 +11,7 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     session[:client_id] = @client.id
-    @projects = Project.where(client_id: @client_id)
+    @projects = Project.where(client_id: @client.id)
   end
 
   # GET /clients/new

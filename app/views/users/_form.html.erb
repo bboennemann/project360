@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :department_id %><br>
-    <%= f.text_field :department_id, value: current_user.department_id, disabled: true %>
+    <%= f.text_field :department_id, value: @department_id, disabled: false %>
   </div>
   <div class="field">
     <%= f.label :organization_id %><br>
@@ -55,7 +55,7 @@
     <%= f.label :cost %><br>
     <%= f.text_field :cost %>
   </div>
-  <input type="hidden" id="department_id" name="department_id" value="<%= current_user.department_id %>">
+
   <div class="actions">
     <%= f.submit %>
   </div>

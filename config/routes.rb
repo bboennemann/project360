@@ -5,9 +5,12 @@ Rails.application.routes.draw do
   post 'users/admin_create' => 'users#create'
 
   resources :organizations do
+      resources :departments, only: [:new]
+      resources :roles, only: [:new]
   end
 
   resources :departments do
+    resources :users, only: [:new]
   end
   
   resources :clients do

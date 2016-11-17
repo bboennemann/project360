@@ -1,12 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <h3>Roles</h3>
 
-<table>
+<table width="100%" border="1">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Rate</th>
+      <th>Default Rate</th>
+      <th>Default Cost</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +15,7 @@
       <tr>
         <td><%= role.name %></td>
         <td><%= role.rate %></td>
+        <td><%= role.cost %></td>
         <td><%= link_to 'Show', role %></td>
         <td><%= link_to 'Edit', edit_role_path(role) %></td>
         <td><%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Role', new_role_path %>
+<%= link_to 'New Role', new_organization_role_path(@organization) %>
