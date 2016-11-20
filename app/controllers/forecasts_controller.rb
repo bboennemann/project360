@@ -16,10 +16,12 @@ class ForecastsController < ApplicationController
   def new
     @forecast = Forecast.new
     @project_id = params[:project_id]
+    @project = Project.find(@project_id)
   end
 
   # GET /forecasts/1/edit
   def edit
+    @project = @forecast.project
   end
 
   # POST /forecasts
