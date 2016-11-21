@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Client</th>
       <th>Start date</th>
       <th>End date</th>
       <th>Active</th>
@@ -15,6 +16,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
+        <td><%= project.department.name %></td>
         <td><%= project.start_date %></td>
         <td><%= project.end_date %></td>
         <td><%= project.active %></td>

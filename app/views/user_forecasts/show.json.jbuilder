@@ -1,0 +1,1 @@
+json.partial! "user_forecasts/user_forecast", user_forecast: @user_forecast

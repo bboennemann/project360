@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :user_forecasts
   resources :time_entries
   resources :forecasts
   devise_for :users

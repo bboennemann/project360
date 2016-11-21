@@ -4,11 +4,9 @@ class Forecast
   belongs_to :project
   field :project_id, type: BSON::ObjectId
 
-  belongs_to :user
-  field :user_id, type: BSON::ObjectId
-
-  embeds_many :time_entries
+  has_many :user_forecasts
 
   field :name, type: String
   field :revision, type: Integer
+  field :published, type: Mongoid::Boolean
 end

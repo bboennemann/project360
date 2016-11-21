@@ -1,0 +1,2 @@
+module UserForecastsHelper
+end

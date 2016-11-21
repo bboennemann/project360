@@ -19,10 +19,19 @@
     <%= f.label :revision %><br>
     <%= f.number_field :revision %>
   </div>
+  <div class="field">
+    <%= f.label :published %><br>
+    <%= f.check_box :published %>
+  </div>
   <%= f.hidden_field :project_id, value: @project_id %>
 
 
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
+
+
+<% @project_roles.each do |p_role| %>
+  <%= p_role.user.email + " " + p_role.role.name %><br>
 <% end %>

@@ -1,0 +1,1 @@
+json.array! @user_forecasts, partial: 'user_forecasts/user_forecast', as: :user_forecast

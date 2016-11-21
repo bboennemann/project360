@@ -10,7 +10,7 @@ class User
   has_one :role
   field :role_id, type: BSON::ObjectId
 
-  has_many :forecasts
+  has_many :project_roles
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

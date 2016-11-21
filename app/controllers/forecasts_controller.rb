@@ -17,6 +17,7 @@ class ForecastsController < ApplicationController
     @forecast = Forecast.new
     @project_id = params[:project_id]
     @project = Project.find(@project_id)
+    @project_roles = ProjectRole.where(project_id: @project_id)
   end
 
   # GET /forecasts/1/edit
@@ -72,6 +73,6 @@ class ForecastsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def forecast_params
-      params.require(:forecast).permit(:name, :revision, :project_id)
+      params.require(:forecast).permit(:name, :revision, :project_id, :published)
     end
 end

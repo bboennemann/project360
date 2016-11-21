@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Timeentry:</strong>
+  <%= @user_forecast.timeentry %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @user_forecast.published %>
+</p>
+
+<%= link_to 'Edit', edit_user_forecast_path(@user_forecast) %> |
+<%= link_to 'Back', user_forecasts_path %>
