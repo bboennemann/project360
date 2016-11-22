@@ -30,8 +30,3 @@
     <%= f.submit %>
   </div>
 <% end %>
-
-
-<% @project_roles.each do |p_role| %>
-  <%= p_role.user.email + " " + p_role.role.name %><br>
-<% end %>

@@ -1,4 +1,4 @@
-<h1>Forecasts</h1>
+<h1>Forecasts <%= @forecast.id %></h1>
 
 <table width="100%" border="1">
   <thead>
@@ -20,7 +20,7 @@
         <td><%= role.role.name %></td>
         <% 35.times do |i| %>
         <td <%= day_style(first_monday_of_this_week + i) %>>
-          <input type="text" name="" maxlength="3" size="3">
+          <input class="forecast_entry" type="text" data-time_entry="" data-user="<%= role.user.id %>" data-date="<%= first_monday_of_this_week + i %>" maxlength="3" size="3" value="<%= @forecast.user_forecasts.detect {|fc| fc.project_role.id == role.id} %>">
         </td>
         <% end %> 
       </tr>

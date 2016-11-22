@@ -32,7 +32,7 @@ class ForecastsController < ApplicationController
 
     respond_to do |format|
       if @forecast.save
-        format.html { redirect_to @forecast, notice: 'Forecast was successfully created.' }
+        format.html { redirect_to :action => 'edit', :id => @forecast.id, notice: 'Forecast was successfully created.' }
         format.json { render :show, status: :created, location: @forecast }
       else
         format.html { render :new }
