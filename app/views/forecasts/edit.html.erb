@@ -1,6 +1,11 @@
 <h1>Editing Forecast</h1>
 
-<%= render 'user_forecast' %>
+<%= render '/user_forecasts/form' %>
 
 <%= link_to 'Show', @forecast %> |
 <%= link_to 'Back', forecasts_path %>
+<br>
+<br>
+<%= link_to 'backwards', edit_forecast_path(@forecast, start_date: @start_date-7) %> |
+<%= link_to 'forward', edit_forecast_path(@forecast, start_date: @start_date+7) %>
+

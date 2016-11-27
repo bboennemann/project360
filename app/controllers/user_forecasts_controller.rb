@@ -21,11 +21,37 @@ class UserForecastsController < ApplicationController
   def edit
   end
 
+  def update_time_entry
+
+    #! Needs cleanup and performamce review 
+    entry_date = user_forecast_params[:time_entries_attributes].values[0][:entry_date].to_date
+
+    if UserForecast.where(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id]).exists?
+      @user_forecast = UserForecast.find_by(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id])
+      time_entry = @user_forecast.time_entries.detect {|te| te.entry_date == entry_date.to_date}
+      if time_entry.nil?
+        update
+      else
+        respond_to do |format|
+          if time_entry.update_attributes(hours: user_forecast_params[:time_entries_attributes].values[0][:hours])
+            #format.html { redirect_to @user_forecast, notice: 'User forecast was successfully created.' }
+            format.json { render :show, status: :created, location: time_entry }
+          else
+            #format.html { render :new }
+            format.json { render json: time_entry.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    else
+      create
+    end
+  end
+
   # POST /user_forecasts
   # POST /user_forecasts.json
   def create
     @user_forecast = UserForecast.new(user_forecast_params)
-
+    
     respond_to do |format|
       if @user_forecast.save
         format.html { redirect_to @user_forecast, notice: 'User forecast was successfully created.' }
@@ -69,6 +95,6 @@ class UserForecastsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_forecast_params
-      params.require(:user_forecast).permit(:timeentry, :published)
+      params.require(:user_forecast).permit(:published, :user_id, :forecast_id, :project_role_id, time_entries_attributes: [:entry_date, :hours])
     end
 end

@@ -1,25 +1,63 @@
-<%= form_for(@user_forecast) do |f| %>
-  <% if @user_forecast.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_forecast.errors.count, "error") %> prohibited this user_forecast from being saved:</h2>
+<h1>Forecasts <%= @forecast.id %></h1>
 
-      <ul>
-      <% @user_forecast.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<table width="100%" border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+        <% 35.times do |i| %>
+        <th>
+          <%= @start_date + i %>
+        </th>
+        <% end %>      
+    </tr>
+  </thead>
 
-  <div class="field">
-    <%= f.label :timeentry %><br>
-    <%= f.text_field :timeentry %>
-  </div>
-  <div class="field">
-    <%= f.label :published %><br>
-    <%= f.check_box :published %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <tbody>
+    <% @user_forecasts.each do |user_forecast| %>
+      <tr>
+        <td><%= user_forecast.user.email %></td>
+        <td><%= user_forecast.project_role.role.name %></td>
+        <% 35.times do |i| %>
+        <td>
+          <input  class="forecast_entry" 
+                  type="text"
+                  maxlength="3" 
+                  size="3" 
+                  data-user_forecast_id="<%= user_forecast.id %>"
+                  data-forecast_id="<%= @forecast.id %>"
+                  data-project_role_id="<%= user_forecast.project_role.id %>" 
+                  data-user_id="<%= user_forecast.user.id %>" 
+                  data-date="<%= @start_date + i %>" 
+                  value="<%= get_value_from_forecast(user_forecast, @start_date + i) %>" >
+        </td>
+        <% end %> 
+      </tr>
+    <% end %>
+
+    <tr>
+      <td>
+        &nbsp;
+      </td>
+    </tr>
+
+    <% @project_roles.each do |project_role| %>
+      <tr>
+        <td><%= project_role.user.email %></td>
+        <td><%= project_role.role.name %></td>
+        <% 35.times do |i| %>
+        <td>
+          <input  class="forecast_entry" 
+                  type="text"
+                  maxlength="3" 
+                  size="3" 
+                  data-forecast_id="<%= @forecast.id %>"
+                  data-project_role_id="<%= project_role.id %>" 
+                  data-user_id="<%= project_role.user.id %>" 
+                  data-date="<%=  @start_date + i %>" >
+        </td>
+        <% end %> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

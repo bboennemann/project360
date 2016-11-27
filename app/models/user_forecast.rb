@@ -1,5 +1,6 @@
 class UserForecast
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   belongs_to :forecast
   field :forecast_id, type: BSON::ObjectId
@@ -11,8 +12,7 @@ class UserForecast
   field :user_id, type: BSON::ObjectId
 
   embeds_many :time_entries
-
-  field :timeentry, type: String
-  field :active, type: Mongoid::Boolean
+  accepts_nested_attributes_for :time_entries
+  
   field :published, type: Mongoid::Boolean
 end

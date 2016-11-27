@@ -17,12 +17,21 @@ class ForecastsController < ApplicationController
     @forecast = Forecast.new
     @project_id = params[:project_id]
     @project = Project.find(@project_id)
-    @project_roles = ProjectRole.where(project_id: @project_id)
+    @project_roles = ProjectRole.where(project_id: @project_id).all
   end
 
   # GET /forecasts/1/edit
   def edit
-    @project = @forecast.project
+
+    if params[:start_date]
+      @start_date = params[:start_date].to_date
+    else
+      @start_date = Date.today
+    end
+    
+    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).all
+
+    @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).all
   end
 
   # POST /forecasts

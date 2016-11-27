@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   
-  resources :user_forecasts
   resources :time_entries
   resources :forecasts
   devise_for :users
   resources :users
   post 'users/admin_create' => 'users#create'
+
+  resources :user_forecasts
+  post 'user_forecasts/update_time_entry' => 'user_forecasts#update_time_entry'
 
   resources :organizations do
       resources :departments, only: [:new]
