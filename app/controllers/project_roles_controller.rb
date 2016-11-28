@@ -28,6 +28,7 @@ class ProjectRolesController < ApplicationController
 
   # GET /project_roles/1/edit
   def edit
+    @roles = Role.where(organization_id: current_user.organization_id)
   end
 
   # POST /project_roles

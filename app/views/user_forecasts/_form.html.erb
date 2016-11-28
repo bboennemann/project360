@@ -1,62 +1,76 @@
-<h1>Forecasts <%= @forecast.id %></h1>
 
 <table width="100%" border="1">
   <thead>
     <tr>
       <th>Name</th>
       <th>Role</th>
-        <% 35.times do |i| %>
+      <th>Rate</th>
+      <th>Cost</th>
+        <% 7.times do |i| %>
         <th>
           <%= @start_date + i %>
         </th>
-        <% end %>      
+        <% end %>
+      <th>total hrs</th> 
+      <th>total amount</th>   
+      <th>total cost</th> 
+      <th>margin</th>        
     </tr>
   </thead>
 
   <tbody>
     <% @user_forecasts.each do |user_forecast| %>
       <tr>
-        <td><%= user_forecast.user.email %></td>
-        <td><%= user_forecast.project_role.role.name %></td>
-        <% 35.times do |i| %>
+        <td><%= link_to user_forecast.user.email, user_forecast_path(user_forecast) %></td>
+        <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
+        <td><%= user_forecast.project_role.rate %></td>
+        <td><%= user_forecast.project_role.cost %></td>
+        <% 7.times do |i| %>
         <td>
           <input  class="forecast_entry" 
                   type="text"
                   maxlength="3" 
                   size="3" 
                   data-user_forecast_id="<%= user_forecast.id %>"
+                  data-project_id="<%= @forecast.project.id %>"
                   data-forecast_id="<%= @forecast.id %>"
                   data-project_role_id="<%= user_forecast.project_role.id %>" 
                   data-user_id="<%= user_forecast.user.id %>" 
                   data-date="<%= @start_date + i %>" 
                   value="<%= get_value_from_forecast(user_forecast, @start_date + i) %>" >
         </td>
-        <% end %> 
+        <% end %>
+        <td><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 
+        <td><span id="total_amount_<%= user_forecast.project_role.id %>"><%= user_forecast.total_amount %></span></td> 
+        <td><span id="total_cost_<%= user_forecast.project_role.id %>"><%= user_forecast.total_cost %></span></td> 
+        <td><span id="total_result_<%= user_forecast.project_role.id %>"><%= user_forecast.total_amount  - user_forecast.total_cost %></span></td>
       </tr>
     <% end %>
 
-    <tr>
-      <td>
-        &nbsp;
-      </td>
-    </tr>
 
     <% @project_roles.each do |project_role| %>
       <tr>
-        <td><%= project_role.user.email %></td>
+        <td><%= link_to project_role.user.email, edit_project_role_path(project_role) %></td>
         <td><%= project_role.role.name %></td>
-        <% 35.times do |i| %>
+        <td><%= project_role.rate %></td>
+        <td><%= project_role.cost %></td>
+        <% 7.times do |i| %>
         <td>
           <input  class="forecast_entry" 
                   type="text"
                   maxlength="3" 
                   size="3" 
                   data-forecast_id="<%= @forecast.id %>"
+                  data-project_id="<%= @forecast.project.id %>"
                   data-project_role_id="<%= project_role.id %>" 
                   data-user_id="<%= project_role.user.id %>" 
                   data-date="<%=  @start_date + i %>" >
         </td>
         <% end %> 
+        <td><span id="total_hours_<%= project_role.id %>">&nbsp;</span></td> 
+        <td><span id="total_amount_<%= project_role.id %>">&nbsp;</span></td> 
+        <td><span id="total_cost_<%= project_role.id %>">&nbsp;</span></td> 
+        <td><span id="total_result_<%= project_role.id %>">&nbsp;</span></td>
       </tr>
     <% end %>
   </tbody>

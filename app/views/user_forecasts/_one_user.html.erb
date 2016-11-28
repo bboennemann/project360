@@ -1,0 +1,38 @@
+
+<table width="100%" border="1">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Role</th>
+        <% 7.times do |i| %>
+        <th>
+          <%= @start_date + i %>
+        </th>
+        <% end %>
+      <th>total hrs</th>       
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_forecasts.each do |user_forecast| %>
+      <tr>
+        <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
+        <td><%= user_forecast.project_role.role.name %></td>
+        <% 7.times do |i| %>
+          <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
+        <% end %>
+        <td><%= user_forecast.total_hours %></td> 
+    <% end %>
+
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+      <% 7.times do |i| %>
+          <td><%= day_total(@user_forecasts, @start_date + i)  %></td>
+        <% end %>
+      <td >&nbsp;</td>
+    </tr>
+  </tfoot>
+</table>

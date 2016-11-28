@@ -19,7 +19,6 @@ module ForecastsHelper
 		#! needs review. use of CWDate, long function names in HTML.erb files, etc.
 		time_entry = user_forecast.time_entries.detect {|te| te.entry_date == date_entry}
 		if time_entry
-
 			time_entry.hours
 		end
 	end

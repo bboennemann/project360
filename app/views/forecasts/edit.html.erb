@@ -1,5 +1,9 @@
 <h1>Editing Forecast</h1>
 
+<h2><strong>Total hours:</strong><div id="forecast_total_amount"><%= @forecast.total_hours %></div></h2>
+<h2><strong>Total amount:</strong><div id="forecast_total_hours"><%= @forecast.total_amount %></div></h2>
+<h3>Published: <div  id="published_status"><%= @forecast.published %></div></h3><input type="button" id="publish" value="Publish/Unpublish" data-forecast_id="<%= @forecast.id %>">
+
 <%= render '/user_forecasts/form' %>
 
 <%= link_to 'Show', @forecast %> |
@@ -8,4 +12,5 @@
 <br>
 <%= link_to 'backwards', edit_forecast_path(@forecast, start_date: @start_date-7) %> |
 <%= link_to 'forward', edit_forecast_path(@forecast, start_date: @start_date+7) %>
+
 

@@ -14,7 +14,7 @@
   <tbody>
     <% @user_forecasts.each do |user_forecast| %>
       <tr>
-        <td><%= user_forecast.timeentry %></td>
+        <td><%= user_forecast.id %></td>
         <td><%= user_forecast.published %></td>
         <td><%= link_to 'Show', user_forecast %></td>
         <td><%= link_to 'Edit', edit_user_forecast_path(user_forecast) %></td>

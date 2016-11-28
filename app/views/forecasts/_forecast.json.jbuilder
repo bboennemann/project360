@@ -1,2 +1,2 @@
-json.extract! forecast, :id, :name, :revision, :created_at, :updated_at
+json.extract! forecast, :id, :name, :published
 json.url forecast_url(forecast, format: :json)

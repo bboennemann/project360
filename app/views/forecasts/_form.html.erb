@@ -15,14 +15,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :revision %><br>
-    <%= f.number_field :revision %>
-  </div>
-  <div class="field">
-    <%= f.label :published %><br>
-    <%= f.check_box :published %>
-  </div>
+
   <%= f.hidden_field :project_id, value: @project_id %>
 
 

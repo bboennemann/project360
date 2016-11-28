@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Timeentry:</strong>
-  <%= @user_forecast.timeentry %>
+  <strong>Name:</strong>
+  <%= @user_forecast.user.email %>
 </p>
 
-<p>
-  <strong>Published:</strong>
-  <%= @user_forecast.published %>
-</p>
+<%= render 'one_user' %>
 
-<%= link_to 'Edit', edit_user_forecast_path(@user_forecast) %> |
-<%= link_to 'Back', user_forecasts_path %>
+
+<%= link_to 'backwards', user_forecast_path(@user_forecast, start_date: @start_date-7) %> |
+<%= link_to 'forward', user_forecast_path(@user_forecast, start_date: @start_date+7) %>
+

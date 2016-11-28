@@ -11,6 +11,8 @@ class Project
 
   has_many :forecasts
 
+  has_many :user_forecasts
+
   field :name, type: String
   field :start_date, type: Date
   field :end_date, type: Date

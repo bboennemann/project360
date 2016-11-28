@@ -1,5 +1,5 @@
 class ForecastsController < ApplicationController
-  before_action :set_forecast, only: [:show, :edit, :update, :destroy]
+  before_action :set_forecast, only: [:show, :edit, :update, :destroy, :publish, :clone]
 
   # GET /forecasts
   # GET /forecasts.json
@@ -12,12 +12,45 @@ class ForecastsController < ApplicationController
   def show
   end
 
+  def clone
+    new_forecast = @forecast.clone
+    new_forecast.revision = @forecast.revision + 1
+
+    @forecast.user_forecasts.each do |user_forecast|
+      new_user_forecast = user_forecast.clone
+      new_user_forecast.forecast_id = new_forecast.id
+      new_user_forecast.save
+    end
+
+    respond_to do |format|
+      if new_forecast.save
+        format.html { redirect_to :controller => 'projects', :action => 'show', :id => @forecast.project.id, success: 'Forecast was successfully cloned.' }
+        #format.json { render :show, status: :created, location: @forecast }
+      else
+        format.html { redirect_to :controller => 'projects', :action => 'show', :id => @forecast.project.id, notice: 'There was a problem cloning this forecast.' }
+        #format.json { render json: @forecast.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /forecasts/new
   def new
     @forecast = Forecast.new
     @project_id = params[:project_id]
     @project = Project.find(@project_id)
     @project_roles = ProjectRole.where(project_id: @project_id).all
+  end
+
+  # GET /forecast/1/publish
+  def publish
+    Forecast.where(project_id: @forecast.project_id).update_all(published: false)
+    UserForecast.where(project_id: @forecast.project_id).update_all(published: false)
+    UserForecast.where(forecast_id: @forecast.id).update_all(published: !@forecast.published)
+    @forecast.update(published: !@forecast.published)
+    respond_to do |format|
+        format.html { redirect_to :action => 'edit', :id => @forecast.id, notice: 'Forecast was successfully published.' }
+        format.json { render :show, status: :created, location: @forecast }
+      end
   end
 
   # GET /forecasts/1/edit
@@ -29,7 +62,7 @@ class ForecastsController < ApplicationController
       @start_date = Date.today
     end
     
-    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).all
+    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
 
     @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).all
   end
@@ -38,6 +71,7 @@ class ForecastsController < ApplicationController
   # POST /forecasts.json
   def create
     @forecast = Forecast.new(forecast_params)
+    @forecast.user_id = current_user.id
 
     respond_to do |format|
       if @forecast.save

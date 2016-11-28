@@ -10,6 +10,13 @@ class UserForecastsController < ApplicationController
   # GET /user_forecasts/1
   # GET /user_forecasts/1.json
   def show
+    if params[:start_date]
+      @start_date = params[:start_date].to_date
+    else
+      @start_date = Date.today
+    end
+
+    @user_forecasts = UserForecast.where(user_id: @user_forecast.user.id, published: true)
   end
 
   # GET /user_forecasts/new
@@ -95,6 +102,6 @@ class UserForecastsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_forecast_params
-      params.require(:user_forecast).permit(:published, :user_id, :forecast_id, :project_role_id, time_entries_attributes: [:entry_date, :hours])
+      params.require(:user_forecast).permit(:published, :user_id, :project_id, :forecast_id, :project_role_id, time_entries_attributes: [:entry_date, :hours])
     end
 end

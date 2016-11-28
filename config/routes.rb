@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   
   resources :time_entries
   resources :forecasts
+  get '/forecasts/:id/publish' => 'forecasts#publish'
+  get '/forecasts/:id/clone' => 'forecasts#clone', as: :clone_forecast
+
   devise_for :users
   resources :users
   post 'users/admin_create' => 'users#create'

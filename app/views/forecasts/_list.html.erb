@@ -5,7 +5,12 @@
     <tr>
       <th>Name</th>
       <th>Revision</th>
-      <th colspan="3"></th>
+      <th>Hours</th>
+      <th>Revenue</th>
+      <th>Cost</th>
+      <th>Result</th>
+      <th>Published</th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -14,8 +19,14 @@
       <tr>
         <td><%= forecast.name %></td>
         <td><%= forecast.revision %></td>
+        <td><%= forecast.total_hours %></td>
+        <td><%= forecast.total_amount %></td>
+        <td><%= forecast.total_cost %></td>
+        <td><%= forecast.total_amount - forecast.total_cost %></td>
+        <td><%= forecast.published %></td>
         <td><%= link_to 'Show', forecast %></td>
         <td><%= link_to 'Edit', edit_forecast_path(forecast) %></td>
+        <td><%= link_to 'Clone', clone_forecast_path(forecast) %></td>
         <td><%= link_to 'Destroy', forecast, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
