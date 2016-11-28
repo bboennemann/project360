@@ -64,7 +64,7 @@ class ForecastsController < ApplicationController
     
     @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
 
-    @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).all
+    @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all
   end
 
   # POST /forecasts

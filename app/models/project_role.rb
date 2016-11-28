@@ -14,4 +14,5 @@ class ProjectRole
 
   field :rate, type: Float
   field :cost, type: Float
+
 end

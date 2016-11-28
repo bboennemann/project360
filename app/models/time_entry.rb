@@ -5,5 +5,7 @@ class TimeEntry
   field :forecast_id, type: BSON::ObjectId
 
   field :entry_date, type: Date
-  field :hours, type: Float
+  field :hours, type: Float, default: 0
+
+  validates :hours, presence: true
 end

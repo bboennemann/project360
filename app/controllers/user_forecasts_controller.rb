@@ -32,6 +32,11 @@ class UserForecastsController < ApplicationController
 
     #! Needs cleanup and performamce review 
     entry_date = user_forecast_params[:time_entries_attributes].values[0][:entry_date].to_date
+    hours = user_forecast_params[:time_entries_attributes].values[0][:hours]
+
+    if hours.empty?
+      hours = 0.0
+    end
 
     if UserForecast.where(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id]).exists?
       @user_forecast = UserForecast.find_by(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id])
@@ -40,7 +45,7 @@ class UserForecastsController < ApplicationController
         update
       else
         respond_to do |format|
-          if time_entry.update_attributes(hours: user_forecast_params[:time_entries_attributes].values[0][:hours])
+          if time_entry.update_attributes(hours: hours)
             #format.html { redirect_to @user_forecast, notice: 'User forecast was successfully created.' }
             format.json { render :show, status: :created, location: time_entry }
           else
