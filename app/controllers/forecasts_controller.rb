@@ -70,6 +70,9 @@ class ForecastsController < ApplicationController
     else
       @start_date = Date.today
     end
+
+    params[:weeks] ? @weeks = params[:weeks].to_i * 7 : @weeks = 7
+
     
     @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
 
