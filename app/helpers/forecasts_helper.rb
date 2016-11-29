@@ -23,6 +23,11 @@ module ForecastsHelper
 		end
 	end
 
+	def day_value (user_forecast, date)
+		hours = get_value_from_forecast(user_forecast, date) 
+		hours.nil? ? nil : hours * user_forecast.project_role.rate 
+	end
+
 end
 
 

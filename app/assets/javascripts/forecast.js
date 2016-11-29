@@ -11,7 +11,7 @@ function newUserForecastEntry(timeEntry){
             $('#total_hours_' + timeEntry.data('project_role_id')).html(response['total_hours']);
             $('#total_amount_' + timeEntry.data('project_role_id')).html(response['total_amount']);
             $('#total_cost_' + timeEntry.data('project_role_id')).html(response['total_cost']);
-            $('#total_result_' + timeEntry.data('project_role_id')).html(response['total_amount'] - response['total_cost']);
+            $('#total_result_' + timeEntry.data('project_role_id')).html(response['total_result']);
         }
     });
 }

@@ -20,19 +20,27 @@ class UserForecast
   field :published, type: Mongoid::Boolean
 
   def total_hours
-    self.time_entries.inject(0) { |sum, te| sum + te[:hours] }
+    hours = self.time_entries.inject(0) { |sum, te| sum + te[:hours] }
+    hours.round(2)
   end
 
   def total_amount
     unless self.project_role.rate.nil?
-      self.total_hours * self.project_role.rate
+      amount = self.total_hours * self.project_role.rate
+      amount.round(2)
     end
   end
 
   def total_cost
     unless self.project_role.cost.nil?
-      self.total_hours * self.project_role.cost
+      cost = self.total_hours * self.project_role.cost
+      cost.round(2)
     end
+  end
+
+  def total_result
+    result = total_amount - total_cost
+    result.round(2)
   end
 
 end

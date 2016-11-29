@@ -23,14 +23,15 @@
       <tr>
         <td><%= link_to user_forecast.user.email, user_forecast_path(user_forecast) %></td>
         <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
-        <td><%= user_forecast.project_role.rate %></td>
-        <td><%= user_forecast.project_role.cost %></td>
+        <td><%= number_to_currency user_forecast.project_role.rate %></td>
+        <td><%= number_to_currency user_forecast.project_role.cost %></td>
         <% 7.times do |i| %>
         <td>
-          <input  class="forecast_entry" 
-                  type="text"
+          <input  class="forecast_entry"
+                  style="width: 50px" 
+                  type="number"
+                  step="0.05"
                   maxlength="3" 
-                  size="3" 
                   data-user_forecast_id="<%= user_forecast.id %>"
                   data-project_id="<%= @forecast.project.id %>"
                   data-forecast_id="<%= @forecast.id %>"
@@ -41,9 +42,9 @@
         </td>
         <% end %>
         <td><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 
-        <td><span id="total_amount_<%= user_forecast.project_role.id %>"><%= user_forecast.total_amount %></span></td> 
-        <td><span id="total_cost_<%= user_forecast.project_role.id %>"><%= user_forecast.total_cost %></span></td> 
-        <td><span id="total_result_<%= user_forecast.project_role.id %>"><%= user_forecast.total_amount  - user_forecast.total_cost %></span></td>
+        <td><span id="total_amount_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_amount %></span></td> 
+        <td><span id="total_cost_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_cost %></span></td> 
+        <td><span id="total_result_<%= user_forecast.project_role.id %>"><%= number_to_currency(user_forecast.total_result) %></span></td>
       </tr>
     <% end %>
 
@@ -56,10 +57,11 @@
         <td><%= project_role.cost %></td>
         <% 7.times do |i| %>
         <td>
-          <input  class="forecast_entry" 
-                  type="text"
-                  maxlength="3" 
-                  size="3" 
+          <input  class="forecast_entry"
+                  style="width: 50px" 
+                  type="number"
+                  step="0.05"
+                  maxlength="3"
                   data-forecast_id="<%= @forecast.id %>"
                   data-project_id="<%= @forecast.project.id %>"
                   data-project_role_id="<%= project_role.id %>" 

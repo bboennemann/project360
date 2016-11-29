@@ -10,6 +10,15 @@ class ForecastsController < ApplicationController
   # GET /forecasts/1
   # GET /forecasts/1.json
   def show
+    if params[:start_date]
+      @start_date = params[:start_date].to_date
+    else
+      @start_date = Date.today
+    end
+    
+    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
+
+    @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all
   end
 
   def clone
