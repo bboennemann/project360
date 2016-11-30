@@ -28,7 +28,7 @@ class ForecastsController < ApplicationController
 
     logger.debug @days
 
-
+    #! This seems to be very inefficcient. Load times are pretty long
     @user_ids = ProjectRole.where(project_id: @forecast.project_id).distinct(:user_id)
     #@users = User.in(id: users).all
     @user_forecasts = UserForecast.in(user_id: @user_ids).or(UserForecast.where(project_id: @forecast.project_id, approval_status: "requested").selector, UserForecast.where(approval_status: "approved").selector).order_by(user_id: :asc).all

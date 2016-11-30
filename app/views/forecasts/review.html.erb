@@ -2,7 +2,15 @@
 <h3>Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
 
 <input type="button" id="approval_request" value="Submit for Approval" data-forecast_id="<%= @forecast.id %>" data-approval_status="approved">
-
+<br><br>
+Weeks to show:
+<%= link_to '1', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=1" %> |
+<%= link_to '2', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=2" %> |
+<%= link_to '5',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=5" %> |
+<%= link_to '10',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=10" %>
+<br>
+<%= link_to 'backwards', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date-7}&weeks=#{@weeks}" %> |
+<%= link_to 'forward', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date+7}&weeks=#{@weeks}" %>
 
 <% @user_ids.each do |user_id| %>
 
@@ -53,8 +61,3 @@
 <%= link_to 'backwards', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date-7}&weeks=#{@weeks}" %> |
 <%= link_to 'forward', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date+7}&weeks=#{@weeks}" %>
 <br><br>
-Weeks to show:
-<%= link_to '1', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=1" %> |
-<%= link_to '2', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=2" %> |
-<%= link_to '5',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=5" %> |
-<%= link_to '10',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=10"%>
