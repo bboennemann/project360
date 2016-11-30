@@ -16,18 +16,20 @@ function newUserForecastEntry(timeEntry){
     });
 }
 
-function publishForecast(forecast){
+function approval(approval){
     $.ajax({
-        url : '/forecasts/' + forecast.data('forecast_id') + '/publish.json' ,
-        type : 'get',
+        url : '/forecasts/' + approval.data('forecast_id') + '/approval.json' ,
+        type : 'post',
+        data : { forecast: { approval_status: approval.data('approval_status') } },
         error : function(jqXHR, textStatus, errorThrown) {
             alert('There was a problem loading the requested content. Please try again later');
         },
         success : function(response, resultText) {
-            $('#published_status').html(response['published']);
+            $('#approval_status').html(response['approval_status']);
         }
     });
 }
+
 
 $(document).ready(function() {
 
@@ -35,8 +37,9 @@ $(document).ready(function() {
 		newUserForecastEntry($(this));
 	});
 
-    $('#publish').click(function(){
-        publishForecast($(this));
+    $('#approval_request').click(function(){
+        approval($(this));
     });
+
 
 });

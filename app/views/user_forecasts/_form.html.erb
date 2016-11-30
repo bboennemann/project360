@@ -6,7 +6,7 @@
       <th>Role</th>
       <th>Rate</th>
       <th>Cost</th>
-        <% @weeks.times do |i| %>
+        <% @days.times do |i| %>
         <th>
           <%= @start_date + i %>
         </th>
@@ -25,7 +25,7 @@
         <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
         <td><%= number_to_currency user_forecast.project_role.rate %></td>
         <td><%= number_to_currency user_forecast.project_role.cost %></td>
-        <% @weeks.times do |i| %>
+        <% @days.times do |i| %>
         <td>
           <input  class="forecast_entry"
                   style="width: 50px" 
@@ -55,7 +55,7 @@
         <td><%= project_role.role.name %></td>
         <td><%= project_role.rate %></td>
         <td><%= project_role.cost %></td>
-        <% @weeks.times do |i| %>
+        <% @days .times do |i| %>
         <td>
           <input  class="forecast_entry"
                   style="width: 50px" 

@@ -11,7 +11,7 @@ class Forecast
 
   field :name, type: String
   field :revision, type: Integer, default: 0
-  field :published, type: Mongoid::Boolean
+  field :approval_status, type: String
 
   def total_hours
   	total_hours = 0

@@ -17,7 +17,7 @@ class UserForecast
   embeds_many :time_entries
   accepts_nested_attributes_for :time_entries
   
-  field :published, type: Mongoid::Boolean
+  field :approval_status, type: String
 
   def total_hours
     hours = self.time_entries.inject(0) { |sum, te| sum + te[:hours] }

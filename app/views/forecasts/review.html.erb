@@ -1,0 +1,60 @@
+<h1>Reviewing: <%= @forecast.project.name %></h1>
+<h3>Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
+
+<input type="button" id="approval_request" value="Submit for Approval" data-forecast_id="<%= @forecast.id %>" data-approval_status="approved">
+
+
+<% @user_ids.each do |user_id| %>
+
+<h3>User: <%= user_id %></h3>
+
+<table width="100%" border="1">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Role</th>
+        <% @days.times do |i| %>
+        <th>
+          <%= @start_date + i %>
+        </th>
+        <% end %>
+      <th>total hrs</th>       
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_forecasts.each do |user_forecast| %>
+    <% if user_forecast.user.id == user_id %>
+      <tr>
+        <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
+        <td><%= user_forecast.user.email %></td>
+        <% @days.times do |i| %>
+          <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
+        <% end %>
+        <td><%= user_forecast.total_hours %></td> 
+    <% end %>
+    <% end %>
+
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+      <% @days.times do |i| %>
+          <td><%= day_total_hours(@user_forecasts, @start_date + i)  %></td>
+        <% end %>
+      <td >&nbsp;</td>
+    </tr>
+  </tfoot>
+</table>
+
+<% end %>
+
+<%= link_to 'backwards', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date-7}&weeks=#{@weeks}" %> |
+<%= link_to 'forward', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date+7}&weeks=#{@weeks}" %>
+<br><br>
+Weeks to show:
+<%= link_to '1', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=1" %> |
+<%= link_to '2', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=2" %> |
+<%= link_to '5',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=5" %> |
+<%= link_to '10',  "/forecasts/#{@forecast.id}/review?start_date=#{@start_date}&weeks=10"%>

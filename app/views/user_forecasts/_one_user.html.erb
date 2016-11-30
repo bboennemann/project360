@@ -17,7 +17,7 @@
     <% @user_forecasts.each do |user_forecast| %>
       <tr>
         <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
-        <td><%= user_forecast.project_role.role.name %></td>
+        <td><%= user_forecast.user.email %></td>
         <% 7.times do |i| %>
           <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
         <% end %>

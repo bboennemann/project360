@@ -1,11 +1,8 @@
-<h1>Forecast: <%= @forecast.name %></h1>
-<h3>Revision: <%= @forecast.revision %></h3>
+<h1><%= @forecast.name %><br><small>Revision: <%= @forecast.revision %></small></h1>
 
-
-<h2><strong>Total hours:</strong><div id="forecast_total_amount"><%= @forecast.total_hours %></div></h2>
-<h2><strong>Total amount:</strong><div id="forecast_total_hours"><%= @forecast.total_amount %></div></h2>
-<h3>Published: <div  id="published_status"><%= @forecast.published %></div></h3>
-
+<h3>Total hours: <value id="forecast_total_amount"><%= @forecast.total_hours %></value> |
+Total amount: <value id="forecast_total_hours"><%= @forecast.total_amount %></value> |
+Approval: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
 
 <table width="100%" border="1">
   <thead>
@@ -14,7 +11,7 @@
       <th>Role</th>
       <th>Rate</th>
       <th>Cost</th>
-        <% 7.times do |i| %>
+        <% @days.times do |i| %>
         <th>
           <%= @start_date + i %>
         </th>
@@ -33,7 +30,7 @@
         <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
         <td><%= user_forecast.project_role.rate %></td>
         <td><%= user_forecast.project_role.cost %></td>
-        <% 7.times do |i| %>
+        <% @days.times do |i| %>
         <td align="center"><%= number_to_currency day_value(user_forecast, @start_date + i)  %></td>
         <% end %>
         <td align="center"><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 
@@ -46,7 +43,7 @@
 
     <tr>
       <td colspan="4">&nbsp;</td>
-      <% 7.times do |i| %>
+      <% @days.times do |i| %>
           <td><%= number_to_currency day_total_value(@user_forecasts, @start_date + i)  %></td>
         <% end %>
       <td colspan="4">&nbsp;</td>
@@ -56,14 +53,15 @@
   </tbody>
 </table>
 
-
-
-<br>
-<%= link_to 'backwards', forecast_path(@forecast, start_date: @start_date-7) %> |
-<%= link_to 'forward', forecast_path(@forecast, start_date: @start_date+7) %>
+<%= link_to 'backwards', forecast_path(@forecast, start_date: @start_date-7, weeks: @weeks) %> |
+<%= link_to 'forward', forecast_path(@forecast, start_date: @start_date+7, weeks: @weeks) %>
+<br><br>
+Weeks to show:
+<%= link_to '1', forecast_path(@forecast, start_date: @start_date, weeks: 1) %> |
+<%= link_to '2', forecast_path(@forecast, start_date: @start_date, weeks: 2) %> |
+<%= link_to '5', forecast_path(@forecast, start_date: @start_date, weeks: 5) %> |
+<%= link_to '10', forecast_path(@forecast, start_date: @start_date, weeks: 10) %>
 <br><br>
 <%= link_to 'edit forecast', edit_forecast_path(@forecast) %>
 <br><br>
 <%= link_to 'Project Overview', project_path(@forecast.project) %>
-
-

@@ -9,7 +9,7 @@
       <th>Revenue</th>
       <th>Cost</th>
       <th>Result</th>
-      <th>Published</th>
+      <th>Approval</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -23,7 +23,7 @@
         <td><%= forecast.total_amount %></td>
         <td><%= forecast.total_cost %></td>
         <td><%= forecast.total_amount - forecast.total_cost %></td>
-        <td><%= forecast.published %></td>
+        <td><%= forecast.approval_status == "requested" ? (link_to forecast.approval_status, "/forecasts/#{forecast.id}/review") : forecast.approval_status %></td>
         <td><%= link_to 'Show', forecast %></td>
         <td><%= link_to 'Edit', edit_forecast_path(forecast) %></td>
         <td><%= link_to 'Clone', clone_forecast_path(forecast) %></td>
