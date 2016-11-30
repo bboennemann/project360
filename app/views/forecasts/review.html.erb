@@ -1,3 +1,5 @@
+<!-- #! D.R.Y !!!  -->
+
 <h1>Reviewing: <%= @forecast.project.name %></h1>
 <h3>Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
 
@@ -12,9 +14,9 @@ Weeks to show:
 <%= link_to 'backwards', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date-7}&weeks=#{@weeks}" %> |
 <%= link_to 'forward', "/forecasts/#{@forecast.id}/review?start_date=#{@start_date+7}&weeks=#{@weeks}" %>
 
-<% @user_ids.each do |user_id| %>
+<% @users.each do |user| %>
 
-<h3>User: <%= user_id %></h3>
+<h3>User: <%= user.email %></h3>
 
 <table width="100%" border="1">
   <thead>
@@ -31,16 +33,16 @@ Weeks to show:
   </thead>
 
   <tbody>
-    <% @user_forecasts.each do |user_forecast| %>
-    <% if user_forecast.user.id == user_id %>
-      <tr>
+    <% user.user_forecasts.each do |user_forecast| %>
+      <% if (user_forecast.approval_status == "approved"  && (user_forecast.project_id != @forecast.project_id)) || ((user_forecast.approval_status == "requested") && (user_forecast.project_id == @forecast.project_id))  %>
+      <tr <%= user_forecast.forecast_id == @forecast.id ? "style='background: yellow;'".html_safe : nil %>>
         <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
         <td><%= user_forecast.user.email %></td>
         <% @days.times do |i| %>
           <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
         <% end %>
         <td><%= user_forecast.total_hours %></td> 
-    <% end %>
+        <% end %>
     <% end %>
 
   </tbody>
@@ -49,7 +51,7 @@ Weeks to show:
     <tr>
       <td colspan="2">&nbsp;</td>
       <% @days.times do |i| %>
-          <td><%= day_total_hours(@user_forecasts, @start_date + i)  %></td>
+          <td><%= day_total_hours_for_review(user.user_forecasts, @start_date + i)  %></td>
         <% end %>
       <td >&nbsp;</td>
     </tr>
