@@ -16,10 +16,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :client_id %><br>
-    <%= f.text_field :client_id, value: @client.id, disabled: false %>
-  </div>
-  <div class="field">
     <%= f.label :client_name %><br>
     <%= f.text_field :client_name, value: @client.name , disabled: true %>
   </div>
@@ -35,6 +31,7 @@
     <%= f.label :active %><br>
     <%= f.check_box :active %>
   </div>
+  <%= f.hidden_field :client_id, value: @client.id, disabled: false %>
   <%= f.hidden_field :department_id, value: current_user.department_id %>
   <div class="actions">
     <%= f.submit %>

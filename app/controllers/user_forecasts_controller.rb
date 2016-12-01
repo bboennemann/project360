@@ -29,6 +29,7 @@ class UserForecastsController < ApplicationController
   end
 
   def update_time_entry
+
     entry_date = user_forecast_params[:time_entries_attributes].values[0][:entry_date].to_date
     
     hours = user_forecast_params[:time_entries_attributes].values[0][:hours]

@@ -16,11 +16,7 @@ class ForecastsController < ApplicationController
 
   # GET /forecast/1/review
   def review
-    if params[:start_date]
-      @start_date = params[:start_date].to_date
-    else
-      @start_date = Date.today
-    end
+    @start_date = get_start_date
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
     @weeks > 10 ? @weeks = 10 : nil
@@ -70,11 +66,7 @@ class ForecastsController < ApplicationController
   # GET /forecasts/1
   # GET /forecasts/1.json
   def show
-    if params[:start_date]
-      @start_date = params[:start_date].to_date
-    else
-      @start_date = Date.today
-    end
+    @start_date = get_start_date
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
     @weeks > 10 ? @weeks = 10 : nil
@@ -97,12 +89,11 @@ class ForecastsController < ApplicationController
 
   # GET /forecasts/1/edit
   def edit
-
-    if params[:start_date]
-      @start_date = params[:start_date].to_date
-    else
-      @start_date = Date.today
+    if @forecast.approval_status == "approved"
+      redirect_to @forecast, notice: 'This forecast is locked for editing.'
     end
+
+    @start_date = get_start_date
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
     @weeks > 10 ? @weeks = 10 : nil
@@ -156,6 +147,14 @@ class ForecastsController < ApplicationController
   end
 
   private
+    def get_start_date
+      if params[:start_date]
+        @start_date = params[:start_date].to_date
+      else
+        @start_date = Date.today - Date.today.cwday + 1
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_forecast
       @forecast = Forecast.find(params[:id])

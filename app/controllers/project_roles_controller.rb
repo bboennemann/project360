@@ -19,9 +19,8 @@ class ProjectRolesController < ApplicationController
 
   # GET /project_roles/new
   def new
-    logger.debug project_role_params[:project_id].to_s
-    @user = User.where(id: project_role_params[:user_id])
-    @project = Project.where(id: project_role_params[:project_id])
+    @user = User.find(project_role_params[:user_id])
+    @project = Project.find(project_role_params[:project_id])
     @project_role = ProjectRole.new(project_role_params)
     @roles = Role.where(organization_id: current_user.organization_id)
   end

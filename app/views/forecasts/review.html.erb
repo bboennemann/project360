@@ -24,7 +24,7 @@ Weeks to show:
       <th>Project</th>
       <th>Role</th>
         <% @days.times do |i| %>
-        <th>
+        <th <%= day_style ( @start_date + i ) %>>
           <%= @start_date + i %>
         </th>
         <% end %>
@@ -39,7 +39,7 @@ Weeks to show:
         <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
         <td><%= user_forecast.user.email %></td>
         <% @days.times do |i| %>
-          <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
+          <td <%= day_style ( @start_date + i ) %>><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
         <% end %>
         <td><%= user_forecast.total_hours %></td> 
         <% end %>

@@ -1,6 +1,6 @@
 module ForecastsHelper
-	def first_monday_of_week date
-		return date - date + 1
+	def monday_of_week date
+		return (date - date.cwday + 1)
 	end
 
 	def day_name_short(date)
@@ -9,8 +9,7 @@ module ForecastsHelper
 	end
 
 	def day_style(date)
-		case date.to_s.to_i % 7
-		when 0,6
+		if date.cwday == 6 || date.cwday == 7
 			return "style='background: silver;'".html_safe
 		end
 	end

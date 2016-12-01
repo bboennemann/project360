@@ -1,4 +1,6 @@
-<h3>New Project Role</h3>
+<h3>New Project Role for <%= @user.email %></h3>
+<p>Client: <%= @project.client.name%></p>
+<p>Project: <%= @project.name%></p>
 
 <%= render 'form' %>
 

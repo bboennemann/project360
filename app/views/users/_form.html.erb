@@ -12,14 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :department_id %><br>
-    <%= f.text_field :department_id, value: @department_id, disabled: false %>
-  </div>
-  <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.text_field :organization_id, value: current_user.organization_id, disabled: true %>
-  </div>
-  <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
@@ -45,7 +37,7 @@
   </div>
   <div class="field">
     <%= f.label :role %>
-    <%= f.collection_select :role_id, @roles, :id, :name, include_blank: true %>
+    <%= f.collection_select :role_id, @roles, :id, :name, {include_blank: true} %>
   </div>
   <div class="field">
     <%= f.label :rate %><br>
@@ -55,7 +47,8 @@
     <%= f.label :cost %><br>
     <%= f.text_field :cost %>
   </div>
-
+  <%= f.hidden_field :department_id, value: @department_id, disabled: false %>
+  <%= f.hidden_field :organization_id, value: current_user.organization_id, disabled: true %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -19,6 +19,10 @@
     <%= f.label :rate %><br>
     <%= f.text_field :rate %>
   </div>
+  <div class="field">
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </div>
   
     <%= f.hidden_field :organization_id, value: current_user.organization.id %>
 

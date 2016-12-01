@@ -1,13 +1,14 @@
 <h1><%= @forecast.name %><br><small>Revision: <%= @forecast.revision %></small></h1>
 
-<h3>Total hours: <value id="forecast_total_amount"><%= @forecast.total_hours %></value> |
-Total amount: <value id="forecast_total_hours"><%= @forecast.total_amount %></value> |
-Approval: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
+<h3>Total hours: <value id="forecast_total_hours"><%= @forecast.total_hours %></value> |
+Total amount: <value id="forecast_total_amount"><%= number_to_currency @forecast.total_amount %></value> |
+Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
 
 <%= render '/user_forecasts/form' %>
 
-<%= link_to 'backwards', edit_forecast_path(@forecast, start_date: @start_date-7, weeks: @weeks) %> |
-<%= link_to 'forward', edit_forecast_path(@forecast, start_date: @start_date+7, weeks: @weeks) %>
+<%= link_to '<<', edit_forecast_path(@forecast, start_date: @start_date-7, weeks: @weeks) %> |
+<%= link_to 'Today', edit_forecast_path(@forecast, start_date: monday_of_week(Date.today), weeks: @weeks) %> |
+<%= link_to '>>', edit_forecast_path(@forecast, start_date: @start_date+7, weeks: @weeks) %>
 <br><br>
 Weeks to show:
 <%= link_to '1', edit_forecast_path(@forecast, start_date: @start_date, weeks: 1) %> |

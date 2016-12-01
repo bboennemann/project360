@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label 'Role' %>
     <%= f.collection_select :role_id, @roles, :id, :name, include_blank: true %>
   </div>
@@ -27,10 +23,8 @@
     <%= f.label :cost %><br>
     <%= f.text_field :cost %>
   </div>
-  <div class="field">
-    <%= f.label :project_id %><br>
-    <%= f.text_field :project_id, disabled: false %>
-  </div>
+  <%= f.hidden_field :project_id %>
+  <%= f.hidden_field :user_id %>
   <div class="actions">
     <%= f.submit %>
   </div>
