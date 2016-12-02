@@ -17,4 +17,13 @@ class Project
   field :start_date, type: Date
   field :end_date, type: Date
   field :active, type: Mongoid::Boolean
+
+  def approved_forecast
+    forecast = nil
+    self.forecasts.each do |forecast|
+      if forecast.approval_status == "approved"
+        return forecast
+      end
+    end
+  end
 end

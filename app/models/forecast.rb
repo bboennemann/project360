@@ -36,4 +36,14 @@ class Forecast
     end
     return total_cost
   end
+
+  def approved_forecast project
+    self.forecasts.each do |forecast|
+      if forecast.approval_status == "approved"
+        return forecast
+        break
+      end     
+    end
+  end
+
 end
