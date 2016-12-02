@@ -1,0 +1,3 @@
+module ProjectReportsHelper
+
+end

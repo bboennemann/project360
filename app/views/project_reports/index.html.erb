@@ -1,0 +1,14 @@
+<h1>Report for: <%= @project.name %></h1>
+<h3>Client: <%= @project.client.name %></h3>
+
+<table border="1">
+    <tr>
+      <th>Hours</th>
+      <th>Revenue</th>
+      <th>Cost</th>
+      <th>Result</th>
+    </tr>
+	<tr>
+		<%= render partial: "/projects/project_report_overview", locals: {forecast: approved_forecast(@project) } %>
+	</tr>
+</table>

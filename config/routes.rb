@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+
+  
+
+  get 'project_report/index'
+
   resources :time_entries
   resources :forecasts
   post '/forecasts/:id/approval' => 'forecasts#approval'
@@ -23,6 +28,7 @@ Rails.application.routes.draw do
   end
   
   resources :clients do
+    get 'client_reports/index'
     resources :projects, only: [:new]
   end
 
@@ -33,10 +39,10 @@ Rails.application.routes.draw do
   resources :roles
 
   resources :projects do
+    get 'project_reports/index'
     resources :project_roles, only: [:new]
     get 'project_roles/assign' => 'project_roles#assign'
     resources :forecasts, only: [:new]
-
   end
 
   

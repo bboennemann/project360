@@ -1,0 +1,22 @@
+<h1>Report for Client: <%= @client.name %></h1>
+<h3>Department: <%= @client.department.name %></h3>
+
+<table border="1">
+    <tr>
+    	<th>Project</th>
+      <th>Hours</th>
+      <th>Revenue</th>
+      <th>Cost</th>
+      <th>Result</th>
+    </tr>
+    <% @client.projects.each do |project| %>
+    	
+	<tr>
+		<td>
+			<%= project.name %>
+		</td>
+		<%= render partial: "/projects/project_report_overview", locals: { forecast: approved_forecast(project) } %>
+	</tr>
+
+	<% end %>
+</table>
