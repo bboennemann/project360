@@ -10,13 +10,19 @@
       <th>Result</th>
     </tr>
     <% @client.projects.each do |project| %>
-    	
-	<tr>
-		<td>
-			<%= project.name %>
-		</td>
-		<%= render partial: "/projects/project_report_overview", locals: { forecast: project.approved_forecast } %>
-	</tr>
+
+
+  <% unless project.approved_forecast == true %>	
+  
+  	
+    <tr>
+  		<td>
+  			<%= project.name %>
+  		</td>
+  		<%= render partial: "/projects/project_report_overview", locals: { forecast: project.approved_forecast } %>
+  	</tr>
+  <% end %>
+
 
 	<% end %>
 </table>

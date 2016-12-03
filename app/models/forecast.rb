@@ -53,4 +53,5 @@ class Forecast
     return amount
   end
 
+
 end
