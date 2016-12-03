@@ -24,11 +24,31 @@ class UserForecast
     hours.round(2)
   end
 
+  def day_hours date_entry
+    time_entry = self.time_entries.detect {|te| te.entry_date == date_entry}
+    if time_entry
+      time_entry.hours.round(2)
+    else
+      time_entry = 0
+    end
+  end
+
   def total_amount
     unless self.project_role.rate.nil?
       amount = self.total_hours * self.project_role.rate
       amount.round(2)
     end
+  end
+
+  def day_amount date_entry
+    day_amount = 0
+    unless self.project_role.rate.nil?
+      time_entry = self.time_entries.detect {|te| te.entry_date == date_entry}
+      if time_entry
+        day_amount = time_entry.hours * self.project_role.rate 
+      end
+    end
+    return day_amount.round(2)
   end
 
   def total_cost

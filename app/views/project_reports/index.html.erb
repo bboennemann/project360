@@ -9,6 +9,6 @@
       <th>Result</th>
     </tr>
 	<tr>
-		<%= render partial: "/projects/project_report_overview", locals: {forecast: approved_forecast(@project) } %>
+		<%= render partial: "/projects/project_report_overview", locals: {forecast: @project.approved_forecast } %>
 	</tr>
 </table>

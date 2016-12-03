@@ -13,7 +13,9 @@ function newUserForecastEntry(timeEntry){
             $('#total_cost_' + timeEntry.data('project_role_id')).html(response['total_cost']);
             $('#total_result_' + timeEntry.data('project_role_id')).html(response['total_result']);    
             $('#forecast_total_amount').html(response['forecast_total_amount']);
-            $('#forecast_total_hours').html(response['forecast_total_hours']);            
+            $('#forecast_total_hours').html(response['forecast_total_hours']); 
+            $('#day_total_hours_' + timeEntry.data('date')).html(response['day_total_hours']);
+            $('#day_total_amount_' + timeEntry.data('date')).html(response['day_total_amount']);                        
         }
     });
 }

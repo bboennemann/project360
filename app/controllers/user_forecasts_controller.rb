@@ -30,7 +30,7 @@ class UserForecastsController < ApplicationController
 
   def update_time_entry
 
-    entry_date = user_forecast_params[:time_entries_attributes].values[0][:entry_date].to_date
+    @entry_date = user_forecast_params[:time_entries_attributes].values[0][:entry_date].to_date
     
     hours = user_forecast_params[:time_entries_attributes].values[0][:hours]
 
@@ -41,7 +41,8 @@ class UserForecastsController < ApplicationController
     #! Needs cleanup and performamce review
     if UserForecast.where(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id]).exists?
       @user_forecast = UserForecast.find_by(forecast_id: user_forecast_params[:forecast_id] , project_role_id: user_forecast_params[:project_role_id])
-      time_entry = @user_forecast.time_entries.detect {|te| te.entry_date == entry_date.to_date}
+      @forecast = @user_forecast.forecast
+      time_entry = @user_forecast.time_entries.detect {|te| te.entry_date == @entry_date.to_date}
       if time_entry.nil?
         update
       else

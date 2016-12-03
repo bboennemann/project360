@@ -36,4 +36,21 @@ class Forecast
     end
     return total_cost
   end
+
+  def day_total_hours entry_date
+    hours = 0
+    self.user_forecasts.each do |user_forecast|
+      hours = hours + user_forecast.day_hours(entry_date)
+    end
+    return hours
+  end
+
+  def day_total_amount entry_date
+    amount = 0
+    self.user_forecasts.each do |user_forecast|
+      amount = amount + user_forecast.day_amount(entry_date)
+    end
+    return amount
+  end
+
 end
