@@ -14,19 +14,6 @@ module ForecastsHelper
 		end
 	end
 
-	def get_value_from_forecast(user_forecast, date_entry)
-		#! needs review. use of CWDate, long function names in HTML.erb files, etc.
-		time_entry = user_forecast.time_entries.detect {|te| te.entry_date == date_entry}
-		if time_entry
-			time_entry.hours
-		end
-	end
-
-	def day_value (user_forecast, date)
-		hours = get_value_from_forecast(user_forecast, date) 
-		hours.nil? ? nil : hours * user_forecast.project_role.rate 
-	end
-
 end
 
 

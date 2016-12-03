@@ -31,7 +31,7 @@ Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></
         <td><%= user_forecast.project_role.rate %></td>
         <td><%= user_forecast.project_role.cost %></td>
         <% @days.times do |i| %>
-        <td align="center" <%= day_style ( @start_date + i ) %>><%= number_to_currency day_value(user_forecast, @start_date + i)  %></td>
+        <td align="center" <%= day_style ( @start_date + i ) %>><%= number_to_currency user_forecast.day_amount(@start_date + i)  %></td>
         <% end %>
         <td align="center"><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 
         <td align="center"><span id="total_amount_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_amount %></span></td> 

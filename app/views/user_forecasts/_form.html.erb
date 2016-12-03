@@ -38,7 +38,7 @@
                   data-project_role_id="<%= user_forecast.project_role.id %>" 
                   data-user_id="<%= user_forecast.user.id %>" 
                   data-date="<%= @start_date + i %>" 
-                  value="<%= get_value_from_forecast(user_forecast, @start_date + i) %>" >
+                  value="<%= user_forecast.day_hours(@start_date + i) %>" >
         </td>
         <% end %>
         <td><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 

@@ -19,7 +19,7 @@
         <td><%= link_to user_forecast.project.name, project_path(user_forecast.project) %></td>
         <td><%= user_forecast.user.email %></td>
         <% 7.times do |i| %>
-          <td><%= get_value_from_forecast(user_forecast, @start_date + i) %></td>
+          <td><%= user_forecast.day_hours(@start_date + i) %></td>
         <% end %>
         <td><%= user_forecast.total_hours %></td> 
     <% end %>
