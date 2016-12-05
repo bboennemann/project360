@@ -16,7 +16,7 @@ class ForecastsController < ApplicationController
 
   # GET /forecast/1/review
   def review
-    @start_date = get_start_date
+    @start_date = first_day_of_week
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
     @weeks > 10 ? @weeks = 10 : nil
@@ -66,14 +66,28 @@ class ForecastsController < ApplicationController
   # GET /forecasts/1
   # GET /forecasts/1.json
   def show
-    @start_date = get_start_date
 
-    params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
-    @weeks > 10 ? @weeks = 10 : nil
-    @days = @weeks * 7
+    if params[:period_type] == "week"
+      @period_type = "week"
+      @start_date = first_day_of_week
+      params[:periods] ? @periods = params[:periods].to_i : @periods = 5
+    elsif params[:period_type] == "month"
+      @start_date = get_first_day_of_month
+      @period_type = "month"
+    elsif params[:period_type] == "custom"
+      @start_date = params[:start_date].to_date
+      @end_date = params[:end_date].to_date
+      @period_type = "custom"
+      @periods = 1
+    else
+      @start_date = first_day_of_week
+      params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
+      @weeks > 10 ? @weeks = 10 : nil
+      @days = @weeks * 7
+      @period_type = "day"
+    end
     
     @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
-
     @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all
   end
 
@@ -93,7 +107,7 @@ class ForecastsController < ApplicationController
       redirect_to @forecast, notice: 'This forecast is locked for editing.'
     end
 
-    @start_date = get_start_date
+    @start_date = first_day_of_week
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
     @weeks > 10 ? @weeks = 10 : nil
@@ -147,9 +161,17 @@ class ForecastsController < ApplicationController
   end
 
   private
-    def get_start_date
+    def first_day_of_week
       if params[:start_date]
-        @start_date = params[:start_date].to_date
+        @start_date = params[:start_date].to_date - params[:start_date].to_date.cwday + 1
+      else
+        @start_date = Date.today - Date.today.cwday + 1
+      end
+    end
+
+    def first_day_of_month
+      if params[:start_date]
+        @start_date = params[:start_date].to_date  - Date.today.cwday + 1
       else
         @start_date = Date.today - Date.today.cwday + 1
       end

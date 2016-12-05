@@ -51,6 +51,17 @@ class UserForecast
     return day_amount.round(2)
   end
 
+  def period_amount start_date, end_date
+    period_amount = 0
+    unless self.project_role.rate.nil?
+      while start_date < end_date do
+        period_amount += day_amount(start_date)
+        start_date += 1
+      end
+    end
+    return period_amount.round(2)
+  end
+
   def total_cost
     unless self.project_role.cost.nil?
       cost = self.total_hours * self.project_role.cost
