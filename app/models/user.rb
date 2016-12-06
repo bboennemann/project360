@@ -1,6 +1,8 @@
 class User
   include Mongoid::Document
 
+  attr_accessor :skip_password_validation  # virtual attribute to skip password validation while saving
+
   belongs_to :department
   field :department_id, type: BSON::ObjectId
 
@@ -52,5 +54,12 @@ class User
   field :last_name, type: String
   field :rate, type: Float
   field :cost, type: Float
+
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+    super
+  end
 
 end

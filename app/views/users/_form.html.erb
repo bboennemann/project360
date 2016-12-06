@@ -15,18 +15,7 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -49,6 +38,7 @@
   </div>
   <%= f.hidden_field :department_id, value: @department_id, disabled: false %>
   <%= f.hidden_field :organization_id, value: current_user.organization_id, disabled: true %>
+  <%= f.hidden_field :skip_password_validation, value: true %>
   <div class="actions">
     <%= f.submit %>
   </div>

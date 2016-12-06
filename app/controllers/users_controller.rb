@@ -29,6 +29,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     @user.organization_id = current_user.organization_id
+
+    @user.skip_password_validation = true if user_params[:skip_password_validation]
     
     respond_to do |format|
       if @user.save
@@ -63,6 +65,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :rate, :cost, :organization_id, :department_id, :password, :password_confirmation)
+      params.require(:user).permit(:email, :first_name, :last_name, :rate, :cost, :organization_id, :department_id, :password, :password_confirmation, :skip_password_validation)
     end
 end

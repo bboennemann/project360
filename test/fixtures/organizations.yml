@@ -1,7 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+<% 1000.times do |i| %>
+Organization_ <%+ i %>:
+  name: Organization_ <%+ i %>
+<% end %>
