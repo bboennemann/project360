@@ -57,6 +57,7 @@ class UserForecastsController < ApplicationController
         end
       end
     else
+      @forecast = Forecast.find(user_forecast_params[:forecast_id])
       create
     end
   end

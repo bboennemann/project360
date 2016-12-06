@@ -1,3 +1,4 @@
+<%= render 'show_by_month' if @period_type == "month"  %>
 <%= render 'show_by_week' if @period_type == "week"  %>
 <%= render 'show_by_day' if @period_type == "day"  %>
 <%= render 'show_by_period' if @period_type == "custom"  %>

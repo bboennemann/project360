@@ -67,12 +67,13 @@ class ForecastsController < ApplicationController
   # GET /forecasts/1.json
   def show
 
+    params[:periods] ? @periods = params[:periods].to_i : @periods = 5
+
     if params[:period_type] == "week"
       @period_type = "week"
       @start_date = first_day_of_week
-      params[:periods] ? @periods = params[:periods].to_i : @periods = 5
     elsif params[:period_type] == "month"
-      @start_date = get_first_day_of_month
+      params[:start_date] ? @start_date = params[:start_date] : @start_date = Date.today
       @period_type = "month"
     elsif params[:period_type] == "custom"
       @start_date = params[:start_date].to_date
@@ -86,6 +87,8 @@ class ForecastsController < ApplicationController
       @days = @weeks * 7
       @period_type = "day"
     end
+
+    @start_date = @start_date.to_date
     
     @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
     @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all

@@ -63,6 +63,11 @@ Weeks to show:
 <%= link_to '5', forecast_path(@forecast, start_date: @start_date, periods: 5, period_type: @period_type) %> |
 <%= link_to '10', forecast_path(@forecast, start_date: @start_date, periods: 10, period_type: @period_type) %>
 <br><br>
+Period:
+<%= link_to 'Day', forecast_path(@forecast, start_date: @start_date, period_type: 'day') %> |
+<%= link_to 'Week', forecast_path(@forecast, start_date: @start_date, period_type: 'week') %> |
+<%= link_to 'Month', forecast_path(@forecast, start_date: @start_date, period_type: 'month') %>
+<br><br>
 <%= link_to 'edit forecast', edit_forecast_path(@forecast) %>
 <br><br>
 <%= link_to 'Project Overview', project_path(@forecast.project) %>
