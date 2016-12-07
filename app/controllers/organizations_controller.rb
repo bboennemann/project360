@@ -32,9 +32,11 @@ class OrganizationsController < ApplicationController
   # POST /organizations.json
   def create
     @organization = Organization.new(organization_params)
+    @organization.project_setting = ProjectSetting.new(organization_id: @organization.id)
 
     respond_to do |format|
       if @organization.save
+        @organization.project_setting.save
         format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
         format.json { render :show, status: :created, location: @organization }
       else

@@ -4,6 +4,9 @@
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>
 
+<br>
+<%= link_to 'Default Project Settings', edit_project_setting_path(@organization.project_setting) %>
+<br>
 <%= render '/departments/list' %>
 <br>
 <%= link_to 'Add Department', new_organization_department_path(@organization) %>

@@ -55,6 +55,8 @@ class User
   field :rate, type: Float
   field :cost, type: Float
 
+  validates_presence_of :role_id
+
   protected
 
   def password_required?

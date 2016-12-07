@@ -30,9 +30,12 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @project.project_setting = @project.client.project_setting.clone
+    @project.project_setting.update(project_id: @project.id, client_id: nil)
 
     respond_to do |format|
       if @project.save
+        @project.project_setting.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -75,6 +78,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :start_date, :end_date, :active, :client_id, :department_id)
+      params.require(:project).permit(:name, :start_date, :end_date, :active, :client_id, :department_id, :contract_value)
     end
 end

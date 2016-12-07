@@ -1,0 +1,27 @@
+<%= form_for(@project_setting) do |f| %>
+  <% if @project_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_setting.errors.count, "error") %> prohibited this project_setting from being saved:</h2>
+
+      <ul>
+      <% @project_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :default_hours_per_day %><br>
+    <%= f.text_field :default_hours_per_day %>
+  </div>
+
+  <div class="field">
+    <%= f.label :default_currency %><br>
+    <%= f.text_field :default_currency %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

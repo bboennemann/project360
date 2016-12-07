@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  default_hours_per_day: 1.5
+  workdays: 
+  default_currency: MyString
+  project_id: MyString
+  organization_id: MyString
+  client_id: MyString
+  department_id: MyString
+
+two:
+  default_hours_per_day: 1.5
+  workdays: 
+  default_currency: MyString
+  project_id: MyString
+  organization_id: MyString
+  client_id: MyString
+  department_id: MyString

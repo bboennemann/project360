@@ -1,0 +1,1 @@
+json.array! @project_settings, partial: 'project_settings/project_setting', as: :project_setting

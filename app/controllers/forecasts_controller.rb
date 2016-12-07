@@ -100,7 +100,7 @@ class ForecastsController < ApplicationController
     @forecast = Forecast.new
     @project_id = params[:project_id]
     @project = Project.find(@project_id)
-    @project_roles = ProjectRole.where(project_id: @project_id).all
+    @project_roles = ProjectRole.where(project_id: @project_id).all    
   end
 
 

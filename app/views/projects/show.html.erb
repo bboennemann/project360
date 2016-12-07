@@ -22,3 +22,6 @@
 
 <%= render '/forecasts/list' %>
 <%= link_to 'New Forecast', new_project_forecast_path(@project) %>
+<p>
+	<%= link_to 'Project Settings', edit_project_setting_path(@project.project_setting) %>
+</p>

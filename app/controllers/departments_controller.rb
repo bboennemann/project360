@@ -34,13 +34,12 @@ class DepartmentsController < ApplicationController
   # POST /departments.json
   def create
     @department = Department.new(department_params)
-
-    logger.debug ">>>>>>>>>>>>>>>>>>." + @department.organization_id.to_s
-
-    #@department.organization_id = department_params[:organization_id]
-
+    @department.project_setting = @department.organization.project_setting.clone
+    @department.project_setting.update(organization_id: nil)
+    
     respond_to do |format|
       if @department.save
+        @department.project_setting.save
         format.html { redirect_to @department, notice: 'Department was successfully created.' }
         format.json { render :show, status: :created, location: @department }
       else

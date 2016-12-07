@@ -5,6 +5,8 @@ class Client
   belongs_to :department
   field :department_id, type: BSON::ObjectId
 
+  has_one :project_setting
+
   has_many :projects
 
   belongs_to :organization

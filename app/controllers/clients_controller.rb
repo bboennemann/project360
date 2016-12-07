@@ -30,9 +30,12 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     @client.department = current_user.department_id
     @client.organization = current_user.organization_id
+    @client.project_setting = @client.department.project_setting.clone
+    @client.project_setting.update(department_id: nil)
 
     respond_to do |format|
       if @client.save
+        @client.project_setting.save
         format.html { redirect_to @client, notice: 'Client was successfully created.' }
         format.json { render :show, status: :created, location: @client }
       else

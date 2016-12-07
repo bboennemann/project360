@@ -12,4 +12,5 @@ class Role
   field :name, type: String
   field :rate, type: Float
   field :cost, type: Float
+  
 end

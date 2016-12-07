@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Default hours per day:</strong>
+  <%= @project_setting.default_hours_per_day %>
+</p>
+
+<p>
+  <strong>Workdays:</strong>
+  <%= @project_setting.workdays %>
+</p>
+
+<p>
+  <strong>Default currency:</strong>
+  <%= @project_setting.default_currency %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @project_setting.project_id %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @project_setting.organization_id %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @project_setting.client_id %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @project_setting.department_id %>
+</p>
+
+<%= link_to 'Edit', edit_project_setting_path(@project_setting) %> |
+<%= link_to 'Back', project_settings_path %>

@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   
-
-  
-
   get 'project_report/index'
+
+  resources :project_settings
 
   resources :time_entries
   resources :forecasts
@@ -19,15 +18,18 @@ Rails.application.routes.draw do
   post 'user_forecasts/update_time_entry' => 'user_forecasts#update_time_entry'
 
   resources :organizations do
+      resources :project_settings
       resources :departments, only: [:new]
       resources :roles, only: [:new]
   end
 
   resources :departments do
+    resources :project_settings
     resources :users, only: [:new]
   end
   
   resources :clients do
+    resources :project_settings
     get 'client_reports/index'
     resources :projects, only: [:new]
   end
@@ -39,6 +41,7 @@ Rails.application.routes.draw do
   resources :roles
 
   resources :projects do
+    resources :project_settings
     get 'project_reports/index'
     resources :project_roles, only: [:new]
     get 'project_roles/assign' => 'project_roles#assign'
