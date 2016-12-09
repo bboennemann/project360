@@ -49,24 +49,9 @@ Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></
         <td align="center"><span id="total_result_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_result %></span></td>
       </tr>
     <% end %>
-    <tfoot>
-
-    <tr>
-      <td colspan="4">&nbsp;</td>
-
-      <% start_date = @start_date %>
-      <% @periods.times do |i| %>
-
-        <td><%= number_to_currency period_total_value(@user_forecasts, start_date.beginning_of_month, start_date.end_of_month)  %></td>
-      
-        <% start_date = start_date.end_of_month.next_day %>
-      <% end %>
-
-      <td colspan="4">&nbsp;</td>
-    </tr>
-  </tfoot>
-
   </tbody>
+
+
 </table>
 
 <%= link_to 'backwards', forecast_path(@forecast, start_date: @start_date.prev_month, periods: @periods, period_type: @period_type) %> |

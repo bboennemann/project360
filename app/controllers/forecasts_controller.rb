@@ -72,9 +72,11 @@ class ForecastsController < ApplicationController
     if params[:period_type] == "week"
       @period_type = "week"
       @start_date = first_day_of_week
+      @periods > 24 ? @periods = 24 : nil
     elsif params[:period_type] == "month"
       params[:start_date] ? @start_date = params[:start_date] : @start_date = Date.today
       @period_type = "month"
+      @periods > 12 ? @periods = 12 : nil
     elsif params[:period_type] == "custom"
       @start_date = params[:start_date].to_date
       @end_date = params[:end_date].to_date
@@ -83,14 +85,14 @@ class ForecastsController < ApplicationController
     else
       @start_date = first_day_of_week
       params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
-      @weeks > 10 ? @weeks = 10 : nil
+      @weeks > 12 ? @weeks = 12 : nil
       @days = @weeks * 7
       @period_type = "day"
     end
 
     @start_date = @start_date.to_date
     
-    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
+    @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:'time_entries.entry_date'.asc).all
     @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all
   end
 
@@ -113,7 +115,7 @@ class ForecastsController < ApplicationController
     @start_date = first_day_of_week
 
     params[:weeks] ? @weeks = params[:weeks].to_i : @weeks = 1
-    @weeks > 10 ? @weeks = 10 : nil
+    @weeks > 12 ? @weeks = 12 : nil
     @days = @weeks * 7
 
     

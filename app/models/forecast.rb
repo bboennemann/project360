@@ -48,7 +48,7 @@ class Forecast
   def day_total_amount entry_date
     amount = 0
     self.user_forecasts.each do |user_forecast|
-      amount = amount + user_forecast.day_amount(entry_date)
+      amount = amount + user_forecast.day_amount(entry_date, user_forecast.project_role.rate)
     end
     return amount
   end

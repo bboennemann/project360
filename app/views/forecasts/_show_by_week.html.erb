@@ -25,6 +25,7 @@ Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></
 
   <tbody>
     <% @user_forecasts.each do |user_forecast| %>
+      <% rate = user_forecast.project_role.rate %>
       <tr>
         <td><%= link_to user_forecast.user.email, user_forecast_path(user_forecast) %></td>
         <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
@@ -39,18 +40,11 @@ Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></
         <td align="center"><span id="total_result_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_result %></span></td>
       </tr>
     <% end %>
-    <tfoot>
+    </tbody>
 
-    <tr>
-      <td colspan="4">&nbsp;</td>
-      <% @periods.times do |i| %>
-          <td <%= day_style ( @start_date + i ) %>><%= number_to_currency period_total_value(@user_forecasts, @start_date + 7*i, @start_date + 7*i+7)  %></td>
-        <% end %>
-      <td colspan="4">&nbsp;</td>
-    </tr>
-  </tfoot>
 
-  </tbody>
+
+
 </table>
 
 <%= link_to 'backwards', forecast_path(@forecast, start_date: @start_date-7, periods: @periods, period_type: @period_type) %> |

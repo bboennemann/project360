@@ -19,13 +19,16 @@ class UserForecast
   
   field :approval_status, type: String
 
+
   def total_hours
     hours = self.time_entries.inject(0) { |sum, te| sum + te[:hours] }
     hours.round(2)
   end
 
+  
   def day_hours date_entry
     time_entry = self.time_entries.detect {|te| te.entry_date == date_entry}
+    #time_entry = self.binary_search_date(date_entry)
     if time_entry
       time_entry.hours.round(2)
     else
@@ -33,6 +36,7 @@ class UserForecast
     end
   end
 
+  
   def total_amount
     unless self.project_role.rate.nil?
       amount = self.total_hours * self.project_role.rate
@@ -40,25 +44,51 @@ class UserForecast
     end
   end
 
-  def day_amount date_entry
+  
+  def day_amount date_entry, rate
     day_amount = 0
-    unless self.project_role.rate.nil?
       time_entry = self.time_entries.detect {|te| te.entry_date == date_entry}
+      #time_entry = self.binary_search_date(date_entry)
       if time_entry
-        day_amount = time_entry.hours * self.project_role.rate 
+        day_amount = time_entry.hours * rate 
       end
-    end
     return day_amount.round(2)
   end
 
-  def period_amount start_date, end_date
-    period_amount = 0
-    unless self.project_role.rate.nil?
-      while start_date < end_date do
-        period_amount += day_amount(start_date)
-        start_date += 1
-      end
+  
+  def period_hours start_date, end_date
+    #get first index
+    first_index = 0
+    while self.time_entries[first_index].entry_date < start_date
+      first_index += 1      
     end
+
+    period_hours = 0
+
+    while start_date < end_date do
+      period_hours += self.time_entries[first_index].hours 
+
+      #period_amount += self.day_amount(start_date, rate)
+
+      start_date += 1
+      first_index += 1
+    end
+    return period_hours
+  end
+
+  # requires a sorted list of time entries!
+  def period_amount start_date, end_date
+    rate = self.project_role.rate
+    return 0 if rate == 0
+    return 0 if rate == nil
+   
+    last_index = self.time_entries.size - 1
+    return 0 if self.time_entries[last_index].entry_date < start_date # don't even look any further
+
+    period_hours = period_hours(start_date, end_date)
+
+    period_amount = period_hours * rate
+
     return period_amount.round(2)
   end
 
@@ -73,5 +103,27 @@ class UserForecast
     result = total_amount - total_cost
     result.round(2)
   end
+
+  def binary_search_date(date, from=0, to=nil)
+    #! currently not used. running into 'stack too deep' errors
+    return 0 if self.time_entries == nil
+
+    if to == nil
+        to = self.time_entries.count - 1
+    end
+
+    mid = (from + to) / 2
+
+
+    if date < self.time_entries[mid].entry_date
+        return binary_search_date date, from, mid - 1
+    elsif date > self.time_entries[mid].entry_date
+        return binary_search_date date, mid + 1, to
+    else
+        #return self.time_entries[mid]
+        return mid #returning the index
+    end
+  end
+
 
 end
