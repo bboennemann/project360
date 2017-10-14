@@ -1,6 +1,6 @@
 <h1><%= @forecast.name %><br><small>Revision: <%= @forecast.revision %></small></h1>
 
-<h3>Total hours: <value id="forecast_total_hours"><%= @forecast.total_hours %></value> |
+<h3>Total hours: <value id="forecast_total_hours"><%= @forecast.total_hours.round(2) %></value> |
 Total amount: <value id="forecast_total_amount"><%= number_to_currency @forecast.total_amount %></value> |
 Approval Status: <value  id="approval_status"><%= @forecast.approval_status %></value></h3>
 

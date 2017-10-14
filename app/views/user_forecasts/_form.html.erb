@@ -18,13 +18,17 @@
     </tr>
   </thead>
 
+
   <tbody>
+
+
     <% @user_forecasts.each do |user_forecast| %>
       <tr>
         <td><%= link_to user_forecast.user.email, user_forecast_path(user_forecast) %></td>
         <td><%= link_to user_forecast.project_role.role.name, project_role_path(user_forecast.project_role) %></td>
         <td><%= number_to_currency user_forecast.project_role.rate %></td>
         <td><%= number_to_currency user_forecast.project_role.cost %></td>
+       
         <% @days.times do |i| %>
         <td <%= day_style ( @start_date + i ) %>>
           <input  class="forecast_entry"
@@ -41,13 +45,13 @@
                   value="<%= user_forecast.day_hours(@start_date + i) %>" >
         </td>
         <% end %>
+     
         <td><span id="total_hours_<%= user_forecast.project_role.id %>"><%= user_forecast.total_hours %></span></td> 
         <td><span id="total_amount_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_amount %></span></td> 
         <td><span id="total_cost_<%= user_forecast.project_role.id %>"><%= number_to_currency user_forecast.total_cost %></span></td> 
         <td><span id="total_result_<%= user_forecast.project_role.id %>"><%= number_to_currency(user_forecast.total_result) %></span></td>
       </tr>
     <% end %>
-
 
     <% @project_roles.each do |project_role| %>
       <tr>
@@ -60,7 +64,7 @@
           <input  class="forecast_entry"
                   style="width: 50px" 
                   type="number"
-                  step="0.05"
+                  step="0.25"
                   max="24"
                   data-forecast_id="<%= @forecast.id %>"
                   data-project_id="<%= @forecast.project.id %>"
@@ -76,6 +80,7 @@
       </tr>
 
     <% end %>
+
 
     <tr>
       <th>&nbsp;</th>
@@ -108,5 +113,6 @@
       <th>&nbsp;</th> 
       <th>&nbsp;</th>         
     </tr>
+
   </tbody>
 </table>

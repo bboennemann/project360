@@ -12,14 +12,15 @@ class Forecast
   field :name, type: String
   field :revision, type: Integer, default: 0
   field :approval_status, type: String
+  field :total_hours, type: Float, default: 0.0
 
-  def total_hours
-  	total_hours = 0
-  	self.user_forecasts.each do |user_forecast|
-  		total_hours = total_hours + user_forecast.total_hours
-  	end
-  	return total_hours
-  end
+  #def total_hours
+  	#total_hours = 0
+  	#self.user_forecasts.each do |user_forecast|
+  		#total_hours = total_hours + user_forecast.total_hours
+  	#end
+  	#return total_hours
+  #end
 
   def total_amount
     total_amount = 0
@@ -42,7 +43,7 @@ class Forecast
     self.user_forecasts.each do |user_forecast|
       hours = hours + user_forecast.day_hours(entry_date)
     end
-    return hours
+    return hours.round(2)
   end
 
   def day_total_amount entry_date

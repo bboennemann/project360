@@ -108,9 +108,12 @@ class ForecastsController < ApplicationController
 
   # GET /forecasts/1/edit
   def edit
+
+
     if @forecast.approval_status == "approved"
       redirect_to @forecast, notice: 'This forecast is locked for editing.'
     end
+
 
     @start_date = first_day_of_week
 
@@ -118,10 +121,10 @@ class ForecastsController < ApplicationController
     @weeks > 12 ? @weeks = 12 : nil
     @days = @weeks * 7
 
-    
     @user_forecasts = UserForecast.where(forecast_id: @forecast.id).order_by(:user_id => :desc).all
 
     @project_roles = ProjectRole.not_in(id: @user_forecasts.map { |fc| fc.project_role.id }).and(project_id: @forecast.project_id).all
+
   end
 
   # POST /forecasts

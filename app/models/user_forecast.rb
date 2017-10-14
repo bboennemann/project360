@@ -18,11 +18,14 @@ class UserForecast
   accepts_nested_attributes_for :time_entries
   
   field :approval_status, type: String
+  field :rate, type: Float, default: 0.0
+  field :total_hours, type: Float, default: 0.0
 
 
-  def total_hours
-    hours = self.time_entries.inject(0) { |sum, te| sum + te[:hours] }
-    hours.round(2)
+
+  def get_total_hours old_value, new_value
+    total_hours = self.total_hours - old_value + new_value.to_f
+    total_hours.round(2)
   end
 
   
@@ -38,10 +41,10 @@ class UserForecast
 
   
   def total_amount
-    unless self.project_role.rate.nil?
+    #unless self.project_role.rate.nil?
       amount = self.total_hours * self.project_role.rate
       amount.round(2)
-    end
+    #end
   end
 
   
@@ -78,7 +81,7 @@ class UserForecast
 
   # requires a sorted list of time entries!
   def period_amount start_date, end_date
-    rate = self.project_role.rate
+    rate = self.rate
     return 0 if rate == 0
     return 0 if rate == nil
    
